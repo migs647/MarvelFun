@@ -13,11 +13,6 @@ struct ComicRow: View {
     let comic: Comic
     
     var body: some View {
-        Button(action: {
-            //      if !selected.insert(symbolName).inserted {
-            //        selected.remove(symbolName)
-            //      }
-        }, label: {
             HStack {
                 HStack {
 //                    if selected.contains(symbolName) {
@@ -38,7 +33,6 @@ struct ComicRow: View {
                     .foregroundStyle(.white)
                 Spacer()
             }
-        })
         .background(Color.baseGray)
         .frame(minHeight: 50)
         

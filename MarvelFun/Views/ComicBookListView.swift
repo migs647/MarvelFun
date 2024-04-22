@@ -9,11 +9,20 @@ import SwiftUI
 
 struct ComicBookListView: View {
     
+    // Used to gather the inventory of comic books
     let inventory: any Inventory
     
+    // Current rendering state of existing comic books.
+    // Note: Can potentially be used to manage the state of each book such as
+    // marking as read or adding to the the library.
     @State private var comicBooks: [Comic] = []
     
-    @State private var selectedComic: Comic = Comic(id: 0, title: "", thumbnail: ImageData(path: "", imageExtension: ""), description: "", upc: "")
+    // Used to display the active comic selected.
+    @State private var selectedComic: Comic = Comic(id: 0,
+                                                    title: "",
+                                                    thumbnail: ImageData(path: "", imageExtension: ""), 
+                                                    description: "",
+                                                    upc: "")
     
     @State private var lastErrorMessage = "" {
         didSet {
@@ -37,17 +46,21 @@ struct ComicBookListView: View {
                             .listRowBackground(Color.baseGray)
                             .controlSize(.large)
                     }
-                    ForEach($comicBooks, id: \.self) { comic in
-                        NavigationLink {
-                            ComicView(selectedComic: comic)
-                        } label: {
-                            ComicRow(comic: comic.wrappedValue)
+                    ForEach(comicBooks, id: \.self) { comic in
+                        Button(action: {
+                            selectedComic = comic
+                            isDisplayingComic.toggle()
+                        }) {
+                            ComicRow(comic: comic)
                         }
                     }
                     .listRowBackground(Color.baseGray)
                     .font(.system(size: 18))
                     .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
 
+                }
+                .sheet(isPresented: $isDisplayingComic) {
+                    ComicView(selectedComic: selectedComic)
                 }
                 .listStyle(.plain)
             }
