@@ -2,11 +2,14 @@
 //  UITestingNetworkHandler.swift
 //  MarvelFun
 //
-//  Created by Cody on 4/22/24.
+//  Created by Cody on 4/21/24.
 //
 
 import Foundation
 
+
+/// Setup class to be able to inject mocks for URLs. The main case right now is only for the main comic.
+/// Must call register in order to overwrite the default URLProtocol class.
 public final class UITestingNetworkHandler {
     
     public static func register() {

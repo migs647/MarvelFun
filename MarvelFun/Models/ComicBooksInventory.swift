@@ -2,17 +2,19 @@
 //  ComicBooksInventory.swift
 //  MarvelFun
 //
-//  Created by Cody on 4/19/24.
+//  Created by Cody on 4/21/24.
 //
 
 import Foundation
 
+/// A generic protocol to allow dependency injection of comic inventory
 protocol Inventory: ObservableObject {
     var comicBooks: [Comic] { get }
     var selectedComic: Comic? { get set }
     func currentComics() async throws -> [Comic]
 }
 
+/// The main ComicBooksInventory used throughout the application
 final class ComicBooksInventory: Inventory {
     @MainActor @Published private(set) var comicBooks: [Comic] = []
     @MainActor @Published var selectedComic: Comic?
@@ -37,6 +39,7 @@ final class ComicBooksInventory: Inventory {
         return comicBooks
     }
     
+    /// The logic for building out the correct hash key needed for the comics endpoint
     func generateHash() throws -> String {
         latestTimestamp = String(NSDate().timeIntervalSince1970)
         let hashFingerprint = "\(latestTimestamp)\(Constants.privateApiKey)\(Constants.apiKey)"

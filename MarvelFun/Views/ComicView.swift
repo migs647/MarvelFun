@@ -2,7 +2,7 @@
 //  ComicView.swift
 //  MarvelFun
 //
-//  Created by Cody on 4/19/24.
+//  Created by Cody on 4/21/24.
 //
 
 import SwiftUI
@@ -29,6 +29,7 @@ struct ComicView: View {
             .frame(maxWidth: .infinity, minHeight: 40.0)
             .background(Color.baseGray)
             
+            // Main Body
             HStack(alignment: .top) {
                 ZStack(alignment: .top) {
                     AsyncImage(url: selectedComic.thumbnailURL(),
@@ -60,9 +61,7 @@ struct ComicView: View {
                                         .foregroundColor(.white)
                                         .frame(minWidth: 200)
                                 }
-                                .background(Color(red: 0.417,
-                                                  green: 0.242,
-                                                  blue: 0.69))
+                                .background(Color.basePurple)
                                 
                                 // MARK AS READ Button
                                 ActionButtonView(text: "MARK AS READ", iconName: "checkmark.circle.fill", action: {})
@@ -109,7 +108,6 @@ struct ComicView: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             // Bottom navigation bar
             HStack {
-                
                 // Previous Button
                 Button(action: {
                     

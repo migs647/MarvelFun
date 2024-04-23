@@ -2,7 +2,7 @@
 //  String+MD5.swift
 //  MarvelFun
 //
-//  Created by Cody on 4/19/24.
+//  Created by Cody on 4/21/24.
 //
 
 import Foundation
@@ -13,6 +13,7 @@ extension String: Error { }
 
 /// Adds convenience to Crypto functions
 extension String {
+    // Note: Found on developer.apple.com, may be worth unit testing in the future
     var MD5: String {
         get throws {
             guard let hashData = self.data(using: .utf8) else {

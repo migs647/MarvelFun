@@ -2,11 +2,12 @@
 //  UITestingURLProtocol.swift
 //  MarvelFun
 //
-//  Created by Cody on 4/22/24.
+//  Created by Cody on 4/21/24.
 //
 
 import Foundation
 
+/// Protocol to replace default URLProtocol for UITesting session data injection.
 final class UITestingURLProcotol: URLProtocol {
     override class func canInit(with request: URLRequest) -> Bool {
         return true // TODO: only return true for requests we have mocked data

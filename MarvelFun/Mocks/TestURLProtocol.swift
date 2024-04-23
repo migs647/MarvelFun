@@ -2,12 +2,13 @@
 //  TestURLProtocol.swift
 //  MarvelFun
 //
-//  Created by Cody on 4/22/24.
+//  Created by Cody on 4/21/24.
 //
 
 import Foundation
 import XCTest
 
+/// Convenience Protocol to use mocks for unit testing using custom URLSessions.
 final class TestURLProtocol: URLProtocol {
     
     override class func canInit(with request: URLRequest) -> Bool {

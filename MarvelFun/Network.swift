@@ -2,11 +2,13 @@
 //  Network.swift
 //  MarvelFun
 //
-//  Created by Cody on 4/19/24.
+//  Created by Cody on 4/21/24.
 //
 
 import Foundation
 
+/// Main Network class helps with mock injection along with API specific handling.
+/// Note: Next iteration should deal with handling other http status codes.
 struct Network {
     
     static let shared: Network = Network()

@@ -2,12 +2,12 @@
 //  Comic.swift
 //  MarvelFun
 //
-//  Created by Cody on 4/19/24.
+//  Created by Cody on 4/21/24.
 //
 
 import Foundation
-@testable import MarvelFun
 
+/// Encapsulates an entire payload from /v1/public/comics
 struct ComicResponse: Codable {
     let attribution: String
     let comics: ComicData
@@ -26,18 +26,8 @@ struct ComicData: Codable {
     }
 }
 
-struct Comic: Codable, Hashable {
-    static func == (lhs: Comic, rhs: Comic) -> Bool {
-        lhs.id == rhs.id && 
-        lhs.title == rhs.title &&
-        lhs.upc == rhs.upc
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(title)
-        hasher.combine(id)
-    }
-    
+/// A single comic that relates to the comics data->results from /v1/public/comics
+struct Comic: Codable {
     let id: Int
     let title: String
     let thumbnail: ImageData
@@ -59,6 +49,19 @@ struct Comic: Codable, Hashable {
     
     private enum CodingKeys: String, CodingKey {
         case id, title, thumbnail, description, upc
+    }
+}
+
+extension Comic: Hashable {
+    static func == (lhs: Comic, rhs: Comic) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.title == rhs.title &&
+        lhs.upc == rhs.upc
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+        hasher.combine(id)
     }
 }
 
