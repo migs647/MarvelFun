@@ -27,7 +27,7 @@ final class ComicBooksInventory: Inventory {
                 let url = Constants.apiEndpointUrl + "?ts=\(latestTimestamp)&apikey=\(Constants.apiKey)&hash=\(hash)"
                 
                 let response: ComicResponse = try await Network().fetch(from: url)
-                comicBooks = response.comics.comics // TODO: FILL OUT DESCRIPTION WITH textObjects->
+                comicBooks = response.comics.comics
                 
             } catch {
                 print(error.localizedDescription)

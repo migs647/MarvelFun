@@ -8,12 +8,23 @@
 import Foundation
 
 struct Network {
+    
+    static let shared: Network = Network()
+    
+    var session: URLSession? = nil
+    
     func fetch<T: Codable>(from urlString: String) async throws -> T {
+        
+        var urlSession = URLSession.shared
+        if let session = session {
+            urlSession = session
+        }
+        
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
         }
         
-        let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await urlSession.data(from: url)
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw URLError(.badServerResponse)

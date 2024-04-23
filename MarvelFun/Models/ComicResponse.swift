@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@testable import MarvelFun
 
 struct ComicResponse: Codable {
     let attribution: String

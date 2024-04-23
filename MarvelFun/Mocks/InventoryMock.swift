@@ -24,4 +24,22 @@ class ComicBooksInventoryMock: Inventory {
                       description: "An amazing amount of text that Ant-Man must process in order to survive!",
                       upc: "abc123456defA")]
     }
+    
+    static func readJSONFile(forName name: String, fileExtension: String) -> Data? {
+        var resourceData: Data? = nil
+        
+        let testBundle = Bundle.main
+        guard let resourceURL = testBundle.url(forResource: name, withExtension: fileExtension) else {
+            // file does not exist
+            return resourceData
+        }
+        do {
+            resourceData = try Data(contentsOf: resourceURL)
+        } catch {
+            // some error occurred when reading the file
+            print("Could not mock parse data")
+        }
+        return resourceData
+    }
+
 }

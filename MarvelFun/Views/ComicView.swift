@@ -80,11 +80,14 @@ struct ComicView: View {
                         VStack(alignment: .leading) {
                             ScrollView {
                                 VStack(alignment: .leading) {
+                                    // Title of the comic
                                     Text(selectedComic.title)
                                         .foregroundStyle(.white)
                                         .font(.title)
+                                        .accessibilityLabel("MainComicTitle")
                                     Divider()
                                         .overlay(.white)
+                                    // Description of the comic
                                     Text(selectedComic.description ?? "")
                                         .foregroundStyle(.white)
                                     Spacer()
@@ -107,12 +110,12 @@ struct ComicView: View {
             // Bottom navigation bar
             HStack {
                 
+                // Previous Button
                 Button(action: {
                     
                 }) {
                     Group {
                         Spacer().frame(width: 0, height: 36.0)
-                        
                         HStack {
                             Image(systemName: "chevron.left")
                                 .foregroundColor(.white)
@@ -130,6 +133,7 @@ struct ComicView: View {
                 
                 Spacer()
                 
+                // Next Button
                 Button(action: {
                     
                 }) {

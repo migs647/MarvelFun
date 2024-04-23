@@ -13,26 +13,22 @@ struct ComicRow: View {
     let comic: Comic
     
     var body: some View {
-            HStack {
-                HStack {
-//                    if selected.contains(symbolName) {
-//                        Image(systemName: "checkmark")
-//                    }
-                }
-                .frame(width: 20)
-                AsyncImage(url: comic.thumbnailURL(),
-                           content: { image in
-                    image.resizable().aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 40, minHeight: 80)
-                }, placeholder: {
-                    ProgressView()
-                })
-                
-                Text(comic.title)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.white)
-                Spacer()
-            }
+        HStack {
+            AsyncImage(url: comic.thumbnailURL(),
+                       content: { image in
+                image.resizable().aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 40, minHeight: 80)
+            }, placeholder: {
+                ProgressView()
+            })
+            .padding(.leading, 20)
+            
+            Text(comic.title)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
+            Spacer()
+        }
+        .accessibilityIdentifier(comic.title)
         .background(Color.baseGray)
         .frame(minHeight: 50)
         

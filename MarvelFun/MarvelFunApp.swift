@@ -12,6 +12,14 @@ struct MarvelFunApp: App {
     var body: some Scene {
         WindowGroup {
             ComicBookListView(inventory: ComicBooksInventory())
+            #if DEBUG
+                .onAppear(perform: {
+                    guard CommandLine.arguments.contains("-uitestingmock") else {
+                        return
+                    }
+                    UITestingNetworkHandler.register()
+                })
+            #endif
         }
     }
 }

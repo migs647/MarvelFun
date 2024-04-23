@@ -6,30 +6,50 @@
 //
 
 import XCTest
+@testable import MarvelFun
 
 final class MarvelFunTests: XCTestCase {
-
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-
+    
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        TestURLProtocol.loadingHandler = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    
+    func testLoadedDataSuccessfully() async throws {
+        
+        guard let responseJSONData = readJSONFile(forName: "Comic", fileExtension: "json") else {
+            XCTFail("could not parse mock data")
+            return
         }
-    }
+        
+        // Build a mock session configuration
+        let configuration = TestURLProtocol.buildSessionConfiguration(data: responseJSONData)
+        
+        var networkClient = Network.shared
+        networkClient.session = URLSession(configuration: configuration)
+        let comic: Comic = try await networkClient.fetch(from: "http://www.example.com")
 
+        XCTAssert(comic.title == "Ant-Man (2003) #1")
+        XCTAssert(comic.upc == "5960605396-01811")
+    }
+    
+    func readJSONFile(forName name: String, fileExtension: String) -> Data? {
+        var resourceData: Data? = nil
+        
+        let testBundle = Bundle(for: type(of: self))
+        guard let resourceURL = testBundle.url(forResource: name, withExtension: fileExtension) else {
+            // file does not exist
+            return resourceData
+        }
+        do {
+            resourceData = try Data(contentsOf: resourceURL)
+        } catch {
+            // some error occurred when reading the file
+            XCTFail("Could not parse data")
+        }
+        return resourceData
+    }
 }
